@@ -1,0 +1,44 @@
+{
+  "name": "quasar-ruoyi",
+  "version": "0.0.1",
+  "description": "A Quasar App backend based on RuoYi",
+  "productName": "quasar_ruoyi App",
+  "author": "AnotherLF",
+  "private": true, 
+  "main": "./src-electron/electron-main.js",
+  "scripts": {
+    "test": "echo \"No test specified\" && exit 0",
+    "dev": "quasar dev",
+    "build": "quasar build",
+    "electron": "quasar dev -m electron",
+    "build:electron": "quasar build --mode electron  --config electron-builder-config.yml",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
+  },
+  "dependencies": {
+    "@quasar/extras": "^1.16.4",
+    "axios": "^1.2.1",
+    "express": "4.18.2",
+    "pdf-to-printer": "^5.6.0",
+    "pinia": "^2.0.11",
+    "quasar": "^2.14.4",
+    "sass": "^1.33.0",
+    "vue": "^3.4.0",
+    "vue-router": "^4.0.0"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^7.3.0",
+    "@quasar/app-vite": "^1.3.0",
+    "autoprefixer": "^10.4.2",
+    "cross-env": "^5.0.5",
+    "electron": "^29.0.0",
+    "electron-packager": "^17.1.1",
+    "postcss": "^8.4.14"
+  },
+  "engines": {
+    "node": "^20.11.0 || ^16 || ^14.19",
+    "npm": ">= 10.2.4'",
+    "yarn": ">= 1.21.1"
+  }
+}
