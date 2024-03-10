@@ -1,11 +1,10 @@
 import request from 'src/utils/request'
 
 // 登录方法
-export function loadProducts() {
-  const data = {  }
-  console.log('B')
+export function loadcategories() {
+let data={}
   return request({
-    url: '/products',
+    url: 'api/pos/category/list',
     method: 'get',
     data: data
   })}

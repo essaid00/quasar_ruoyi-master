@@ -1,29 +1,30 @@
-import {loadProducts} from '../../api/pos/products.js'
+import {loadcategories} from '../../api/pos/categories.js'
 import {defineStore} from 'pinia';
 
-export const useProductstore = defineStore(
-  'product',
+export const usecategoriestore = defineStore(
+  'category',
   {
     state: () => ({
-      products: []
+      categories: []
     }),
     getters: {
-      Count: (state) => products.length,
+      Count: (state) => categories.length,
     },
     actions: {
-      getProducts() {
+      getcategories() {
+        console.log("essaid bonjour ")
         const username = "userInfo.username"
         const password = "userInfo.password"
         const code = "userInfo.code"
         const uuid = "userInfo.uuid"
 
         return new Promise((resolve, reject) => {
-          loadProducts().then(res => {
-            console.log('vvvvvvvvvvvvvvvvvvv')
+          loadcategories().then(res => {
+            console.log('gagagagag')
             console.log(res)
             resolve(res)
           }).catch(error => {
-            console.log('vvvvvvvvvvvvvvvvvvv')
+
             reject(error)
           })
         })
@@ -32,4 +33,4 @@ export const useProductstore = defineStore(
     }
   })
 
-export default useProductstore
+export default usecategoriestore

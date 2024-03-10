@@ -1,112 +1,50 @@
 <template>
 
+   <q-page class="cc-admin row">
+    <div class="col-2 bg-white shadow-2 q-pa-md q-ma-sm">
+      <q-btn class=" q-mb-md"   color="secondary" icon="mdi-delete-empty" @click="lafonctionq('confirm')">
+    modifier une table     </q-btn>
 
-    <div class="column">
-      <div class="col">
-        <div class="example-column-horizontal-alignment">
-          <div class="column items-left  ">
+    <q-btn   class=" q-mb-md"  color="primary" icon="mdi-delete-empty" @click="lafonctionq('confirm')">
+    modifier une table     </q-btn>
+    <q-btn   class=" q-mb-md"  color="primary" icon="mdi-delete-empty" @click="lafonctionq('confirm')">
+    modifier une table     </q-btn>
+    <q-btn  class=" q-mb-md"   color="primary" icon="mdi-delete-empty" @click="lafonctionq('confirm')">
+    modifier une table     </q-btn>
+    <q-btn  class=" q-mb-md"   color="primary" icon="mdi-delete-empty" @click="lafonctionq('confirm')">
+    modifier une table     </q-btn>
+    <q-btn  class=" q-mb-md"   color="primary" icon="mdi-delete-empty" @click="lafonctionq('confirm')">
+    modifier une table     </q-btn>
 
-
-            <div class="row">
-              <div class="col q-m-4">
-                <q-tabs v-model="settingsTab" active-color="primary" active-bg-color="blue-1" class="text-grey-10"
-                  >
-                  <q-tab v-for="(categorie, index) in categories" :key="categorie.id" :name="categorie.libelet"
-                    :label="categorie.libelet" style="justify-content: left" content-class="q-pl-md" />
-
-                </q-tabs>
-              </div>
-              <div class="col">
-                .colssssssssssssss
-              </div>
-            </div>
-
-
-          </div>
-
-        </div>
-      </div>
-      <div class="col-8">
-        <div class="example-column-horizontal-alignment">
-
-          <div class="column items-centre q-ma-md">
-            <div class=" example-row-equal-width">
-
-              <div class="row">
-                <div class="col-7">
-
-
-                  <div class="q-pa-md example-col-gutter-size">
-
-                   <products :tableData="tableData"></products>
-                  </div>
-                  <div class="q-gutter-md">
-
-
-                  </div>
-
-                </div>
-
-                <div class="col-4">
-                  .colssssssssssssss
-                </div>
-                <div class="col-1">
-                  <q-btn type="primary" color="primary" label="Button">Encaiser</q-btn>
-                  <q-btn type="primary" @click="handleClick(2)">Encaiser</q-btn>
-                  <q-btn type="primary" @click="handleClick2(2)">Fermer</q-btn>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="q-pa-md example-column-horizontal-alignment">
-
-          <div class="column items-centre">
-            <div class="row justify-evenly">
-              <div class="col-4">
-                <div class="row justify-between">
-      <div class="col-2">
-        <q-btn type="primary" color="primary">Encaiser</q-btn>
-      </div>
-      <div class="col-2">
-        <q-btn type="primary" @click="handleClick2(2)">Fermer</q-btn>
-      </div>
-      <div class="col-2">
-        <q-btn type="primary" @click="handleClick(2)">Encaiser</q-btn>
-      </div>
     </div>
-                
-       
-               
-              </div>
-              <div class="col-4">
-                .colssssssssssssss
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      </div>
+    <div class="col bg-white shadow-2 q-pa-md q-ma-sm">
+kk
     </div>
+    <div class="col-2 bg-white shadow-2 q-pa-md q-ma-sm">
+      <p  v-for="(categorie, index) in categoryList" :key="categorie.cid" >kk</p>
+    </div>
+    <div class="col bg-green-1 shadow-2 q-pa-md q-ma-sm">
+      <p>kk</p>
+    </div>
+
+  </ q-page>
+
 
 </template>
 
 
 
-<script setup>
-
-
-import { ref,onMounted  } from "vue"
-import categories from "./api/categories"
-import productsTable from "./api/product.ts"
-import tableData from "./api/tableData.ts"
-import  products  from "./components/products.vue";
+<script setup lang="ts">
+import { ref, onMounted, reactive } from "vue"
 import useProductstore from 'stores/modules/product'
+import usecategoriestore from 'stores/modules/category'
+const productList = reactive([])
+const categoryList = reactive([])
+const source2 = ref('');
+
+
 const addProduct = (idProduct) => {
-  tableData.value.push({
+  productList.push({
     id: 9,
     libelet: 'capotshino',
     categorie: 'drink',
@@ -116,34 +54,45 @@ const addProduct = (idProduct) => {
   })
   console.log(idProduct)
 };
-const settingsTab = ref('All');
+const lafonctionq=(product:string)=>{
+  console.log(product)
+
+}
+onMounted(async () => {
+  useProductstore().getProducts().then((res) => {
+    productList.push(...res.rows)
+  }).catch(error => {
+    console.error(error)
+  })}
+  )
+
+  onMounted(async () => {
+
+    console.log("getcategoriesgetcategories bonjour ")
+    usecategoriestore().getcategories().then((reslt)=>{
+
+    categoryList.push(...reslt.rows)
+  }).catch(error => {
+    console.log("essaid bonjour ")
+    console.error(error)
 
 
-const source2 = ref('');
-
-///
-source2.value = 'http://localhost:9080/static/sample.pdf'
-const handleClick = (idProduct) => {
-
-  console.log(idProduct)
-  console.log(tableData.value)
-  tableData.value = tableData.value.filter(item => {
-    console.log(item.id)
-
-    return item.id !== idProduct
   })
+ })
+
+
+
+
+
+
+
+const handleClick = (idProduct) => {
+  source2.value = 'http://localhost:9080/static/sample.pdf'
+
+  productList.push(productList.filter(item => {
+    return item.id !== idProduct
+  }))
 };
-
-onMounted (() => {
-    console.log('onMounted')
-    useProductstore().getProducts().then((data) => {
-      console.log(data)
-    
-    }).catch(error => {
-      console.log("error"+error)
-    })
-})
-
 
 
 </script>
@@ -156,7 +105,7 @@ onMounted (() => {
 
 ;
 
-.col{
+.col {
   border: 1px solid rgba(86, 61, 124, .2)
 }
 </style>
