@@ -21,13 +21,26 @@
 kk
     </div>
     <div class="col-2 bg-white shadow-2 q-pa-md q-ma-sm">
-      <p  v-for="(categorie, index) in categoryList" :key="categorie.cid" >kk</p>
+      <div
+      class="col-lg-2 col-md-2 col-xs-4 text-center bg-white shadow-2 q-mx-sm q-mb-md"
+      v-for="(category, index) in categoryList"
+      :key="index"
+    >
+      <ccshadow>
+        <q-card-section class="bg-blue-1"     @click="handleSelectCategrie(category.cid)">
+
+          <q-img :src="category.image" width="80px" height="80px" :ratio="10 / 2" />
+          <q-item-label>{{ category.cname  }}</q-item-label>
+        </q-card-section>
+      </ccshadow>
+    </div>
+
     </div>
     <div class="col bg-green-1 shadow-2 q-pa-md q-ma-sm">
       <p>kk</p>
     </div>
 
-  </ q-page>
+  </q-page>
 
 
 </template>
@@ -38,6 +51,7 @@ kk
 import { ref, onMounted, reactive } from "vue"
 import useProductstore from 'stores/modules/product'
 import usecategoriestore from 'stores/modules/category'
+import ccshadow from '../../components/ccshadow.vue';
 const productList = reactive([])
 const categoryList = reactive([])
 const source2 = ref('');
@@ -58,6 +72,11 @@ const lafonctionq=(product:string)=>{
   console.log(product)
 
 }
+const handleSelectCategrie=(categorieId:string)=>{
+  console.log(categorieId)
+
+}
+
 onMounted(async () => {
   useProductstore().getProducts().then((res) => {
     productList.push(...res.rows)
