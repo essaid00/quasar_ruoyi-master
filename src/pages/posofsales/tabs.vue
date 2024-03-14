@@ -136,6 +136,7 @@ const onLogin = () => {
       $q.loading.hide()
     }).catch(error => {
       console.error('sss')
+      proxy.$tab.replaceRouter("/login")
       $q.loading.hide()
     })
 
@@ -145,7 +146,7 @@ const onLogin = () => {
       $q.loading.hide()
     })
 
-    
+
     } catch (e) {
       console.error('try')
       $q.loading.hide()
@@ -169,7 +170,7 @@ const close =()=>{
     }
 
 
-  
+
 
 
 
