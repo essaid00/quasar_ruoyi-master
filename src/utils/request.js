@@ -25,7 +25,7 @@ service.interceptors.request.use(config => {
   const isToken = (config.headers || {}).isToken === false
   // Is it necessary to prevent repeated submission of data?
   const isRepeatSubmit = (config.headers || {}).repeatSubmit === false
-  
+
   console.log("interceptors request headers")
    //console.log(getToken())
    //console.log(isToken)
@@ -89,22 +89,23 @@ service.interceptors.response.use(res => {
       if (!isRelogin.show) {
         isRelogin.show = true;
 
-        Dialog.create({
-          title: 'system hint',
-          message: 'The login status has expired. You can continue to stay on this page or log in again.',
-          ok: "OK",
-          cancel: "Cancel",
-          focus:"none",
-          persistent: true
-        }).onOk(() => {
-          router.replace("/login")
-        }).onCancel(() => {
-          // console.log('>>>> Cancel')
-        }).onDismiss(() => {
-          // console.log('I am triggered on both OK and Cancel')
-        })
-      }
-      return Promise.reject('Invalid session, or the session has expired, please log in again。')
+                // Dialog.create({
+                //   title: 'system hint',
+                //   message: 'The login status has expired. You can continue to stay on this page or log in again.',
+                //   ok: "OK",
+                //   cancel: "Cancel",
+                //   focus:"none",
+                //   persistent: true
+                // }).onOk(() => {
+                //   router.replace("/login")
+                // }).onCancel(() => {
+                //   console.log('>>>> Cancel')
+                // }).onDismiss(() => {
+                //   console.log('I am triggered on both OK and Cancel')
+                // })
+              }
+              console.log(res.data.msg)
+      return Promise.reject('password is incorrect or expird. please try again, please log in again。')
     } else if (code === 500) {
       Notify.create({
         message: msg,

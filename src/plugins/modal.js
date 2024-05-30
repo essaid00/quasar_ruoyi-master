@@ -14,7 +14,7 @@ export default {
     Notify.create({
       message: content,
       type: "negative",
-      position: "center"
+      position: "bottom"
     })
   },
   // 成功消息

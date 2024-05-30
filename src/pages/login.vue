@@ -4,7 +4,7 @@
 
     <div class="row">
       <div class="col-lg-6 col-md-6 col-xs-8 flex flex-center">
-        <q-img src="images/logopos.png" width="280px" :ratio="10 / 2" />
+        <q-img src="src/assets/pos/png/logo-color.png"  :ratio="10 / 2" />
       </div>
       <div class="col-lg-6 col-md-6 col-xs-8 col-md-1">
         <div class="row">
@@ -81,13 +81,14 @@
 import { useQuasar } from 'quasar'
 import { reactive, ref } from "vue"
 import {getCurrentInstance} from "vue";
+import msgError  from '../plugins/modal'
 import useUserStore from 'stores/modules/user'
 const userStore = useUserStore()
 const isPwd = ref(true);;
 const autoLogin = ref(true);
 const loading = ref(true);;
 const code = ref(false);;
-
+const {proxy} = getCurrentInstance();
 
 const form = reactive({
   username: 'admin',
@@ -119,18 +120,16 @@ const addCatalog = (caracter) => {
 
   form.password = form.password + caracter;
 
-
-
 }
-const {proxy} = getCurrentInstance();
+
 const $q = useQuasar()
 const onLogin = () => {
   $q.loading.show()
   let data = { username: form.username, password: form.password }
   console.log('data' + data)
   try {
-  
-   // window.myAPI3.subscribe()
+
+   //window.myAPI3.subscribe()
     userStore.login(data).then(res => {
       console.log('login')
     userStore.getInfo().then((err) => {
@@ -144,12 +143,18 @@ const onLogin = () => {
 
 
   }).catch(error => {
-    console.error('err')
+
+
+    proxy.$modal.msgError(error);
+      console.error(error)
       $q.loading.hide()
     })
 
-    
+
     } catch (e) {
+      Notify.create({
+  message: 'Danger, Will Robinson! Danger!'
+})
       console.error('try'+e)
       $q.loading.hide()
     }
@@ -172,7 +177,7 @@ const close =()=>{
     }
 
 
-  
+
 
 
 
